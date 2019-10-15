@@ -14,6 +14,8 @@ import androidx.core.app.NotificationManagerCompat;
 
 import java.io.InputStream;
 
+import com.angelsware.engine.AppActivity;
+
 public class NotificationManager {
 	public native void onNotification(int id, String data);
 
@@ -21,7 +23,7 @@ public class NotificationManager {
 		NotificationChannel notificationChannel = new NotificationChannel(channelId, channelName, importance);
 		notificationChannel.setDescription(channelDescription);
 
-		android.app.NotificationManager notificationManager = (android.app.NotificationManager) MainActivity.Companion.getAppActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+		android.app.NotificationManager notificationManager = (android.app.NotificationManager) AppActivity.getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
 		if (notificationManager != null) {
 			notificationManager.createNotificationChannel(notificationChannel);
 			return true;
@@ -30,8 +32,8 @@ public class NotificationManager {
 	}
 
 	public static void sendNotification(String channelId, int id, String title, String text, String largeIcon, int priority, int color, boolean autoCancel, long[] vibrationPattern, String payload) {
-		NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.Companion.getAppActivity(), channelId);
-		builder.setSmallIcon(R.drawable.ic_launcher_background);
+		NotificationCompat.Builder builder = new NotificationCompat.Builder(AppActivity.getActivity(), channelId);
+		//builder.setSmallIcon(R.drawable.ic_launcher);
 		if (text != null) {
 			builder.setContentText(text);
 		}
@@ -48,27 +50,27 @@ public class NotificationManager {
 			builder.setPriority(priority);
 		}
 		builder.setColor(color);
-		if (vibration != null) {
-			builder.setVibrate(vibration);
+		if (vibrationPattern != null) {
+			builder.setVibrate(vibrationPattern);
 		}
 		builder.setAutoCancel(autoCancel);
 
-		Intent intent = new Intent(MainActivity.Companion.getAppActivity(), MainActivity.class);
+		Intent intent = new Intent(AppActivity.getActivity(), AppActivity.class);
 		intent.putExtra("notification_id", id);
-		if (notification.data != null) {
+		if (payload != null) {
 			intent.putExtra("notification_payload", payload);
 		}
-		PendingIntent pendingIntent = PendingIntent.getActivity(MainActivity.Companion.getAppActivity(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+		PendingIntent pendingIntent = PendingIntent.getActivity(AppActivity.getActivity(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 		builder.setFullScreenIntent(pendingIntent, true);
 
-		NotificationManagerCompat notificationManager = NotificationManagerCompat.from(MainActivity.Companion.getAppActivity());
-		notificationManager.notify(notification.id, builder.build());
+		NotificationManagerCompat notificationManager = NotificationManagerCompat.from(AppActivity.getActivity());
+		notificationManager.notify(id, builder.build());
 	}
 
 	private static Bitmap getBitmapFromAsset(String filePath) {
 		Bitmap bitmap = null;
 		try {
-			AssetManager assetManager = MainActivity.Companion.getAppActivity().getAssets();
+			AssetManager assetManager = AppActivity.getActivity().getAssets();
 			if (assetManager != null) {
 				InputStream inputStream = assetManager.open(filePath);
 				bitmap = BitmapFactory.decodeStream(inputStream);

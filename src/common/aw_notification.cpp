@@ -1,6 +1,6 @@
 #include <localnotifications/aw_notification.h>
 
-namespace {
+namespace LocalNotifications {
 	CNotification::CNotification(int id)
 		: mId(id)
 		, mPriority(0)

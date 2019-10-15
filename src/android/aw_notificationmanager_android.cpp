@@ -1,11 +1,12 @@
 #include "aw_notificationmanager_android.h"
+#include <localnotifications/aw_notification.h>
 #include <platform/android/aw_jni.h>
 #include <platform/android/aw_jnifunction.h>
 #include <platform/android/aw_jnistring.h>
 #include <rendering/aw_color.h>
 
-namespace WebView {
-	bool CNotificationManager_Android::initialize(bool visible) {
+namespace LocalNotifications {
+	bool CNotificationManager_Android::initialize() {
 		if (jclass clazz = Platform::CJniFunction::getClass("com/angelsware/localnotifications/NotificationManager")) {
 			if (jmethodID method = Platform::CJniFunction::getMethod(clazz, "initialize", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;I)Z")) {
 				Platform::CJniString channelId("aw_channel_id");
@@ -35,7 +36,7 @@ namespace WebView {
 		}
 	}
 
-	void CNotificationManager_Android::addListener(IMessageListener* listener) {
+	void CNotificationManager_Android::addListener(INotificationListener* listener) {
 		if (jclass clazz = Platform::CJniFunction::getClass("com/angelsware/localnotifications/NotificationManager")) {
 			if (jmethodID method = Platform::CJniFunction::getMethod(clazz, "addListener", "(J)V")) {
 				Platform::CJni::getEnv()->CallStaticVoidMethod(clazz, method, reinterpret_cast<jlong>(listener));
@@ -43,7 +44,7 @@ namespace WebView {
 		}
 	}
 
-	void CNotificationManager_Android::removeListener(IMessageListener* listener) {
+	void CNotificationManager_Android::removeListener(INotificationListener* listener) {
 		if (jclass clazz = Platform::CJniFunction::getClass("com/angelsware/localnotifications/NotificationManager")) {
 			if (jmethodID method = Platform::CJniFunction::getMethod(clazz, "removeListener", "(J)V")) {
 				Platform::CJni::getEnv()->CallStaticVoidMethod(clazz, method, reinterpret_cast<jlong>(listener));

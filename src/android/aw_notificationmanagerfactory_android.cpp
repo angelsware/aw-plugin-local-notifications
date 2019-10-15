@@ -1,4 +1,4 @@
-#include <webview/aw_notificationmanagerfactory.h>
+#include <localnotifications/aw_notificationmanagerfactory.h>
 #include "aw_notificationmanager_android.h"
 
 namespace LocalNotifications {

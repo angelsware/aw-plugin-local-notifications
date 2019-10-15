@@ -3,6 +3,7 @@
 
 namespace LocalNotifications {
 	class INotificationListener;
+	class CNotification;
 
 	class INotificationManager
 	{
@@ -10,7 +11,7 @@ namespace LocalNotifications {
 		virtual ~INotificationManager() {}
 
 		virtual bool initialize() = 0;
-		virtual void sendNotification(int id, const CNotification& notification) override;
+		virtual void sendNotification(int id, const CNotification& notification) = 0;
 		virtual void addListener(INotificationListener* listener) = 0;
 		virtual void removeListener(INotificationListener* listener) = 0;
 		virtual void clearAllListeners() = 0;

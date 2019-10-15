@@ -1,7 +1,7 @@
 #ifndef __AW_LOCAL_NOTIFICATIONS_NOTIFICATION_MANAGER_ANDROID_H__
 #define __AW_LOCAL_NOTIFICATIONS_NOTIFICATION_MANAGER_ANDROID_H__
 
-#include <localnotifications/aw_notification_manager.h>
+#include <localnotifications/aw_notificationmanager.h>
 
 namespace LocalNotifications {
 	class CNotificationManager_Android
