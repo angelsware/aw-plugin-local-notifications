@@ -3,6 +3,7 @@
 #include <platform/android/aw_jni.h>
 #include <platform/android/aw_jnifunction.h>
 #include <platform/android/aw_jnistring.h>
+#include <platform/android/aw_jnilongarray.h>
 #include <rendering/aw_color.h>
 
 namespace LocalNotifications {
@@ -26,12 +27,13 @@ namespace LocalNotifications {
 				Platform::CJniString title(notification.getTitle());
 				Platform::CJniString text(notification.getText());
 				Platform::CJniString largeIcon(notification.getLargeIcon());
+				Platform::CJniLongArray vibrationPattern(notification.getVibration().data(), static_cast<int>(notification.getVibration().getCount()));
 				int priority = 0;
 				int color = 0;
 				bool autoCancel = true;
-				long vibrationPattern[0];
+
 				Platform::CJniString payload(notification.getPayload());
-				Platform::CJni::getEnv()->CallStaticVoidMethod(clazz, method, channelId.getText(), id, title.getText(), text.getText(), largeIcon.getText(), priority, color, autoCancel, vibrationPattern, payload.getText());
+				Platform::CJni::getEnv()->CallStaticVoidMethod(clazz, method, channelId.getText(), id, title.getText(), text.getText(), largeIcon.getText(), priority, color, autoCancel, vibrationPattern.getLongArray(), payload.getText());
 			}
 		}
 	}

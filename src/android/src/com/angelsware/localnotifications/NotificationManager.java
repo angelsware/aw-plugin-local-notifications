@@ -1,4 +1,4 @@
-package com.angelsware.localnotifications.NotificationManager;
+package com.angelsware.localnotifications;
 
 import android.app.PendingIntent;
 import android.content.Context;
@@ -17,7 +17,7 @@ import java.io.InputStream;
 import com.angelsware.engine.AppActivity;
 
 public class NotificationManager {
-	public native void onNotification(int id, String data);
+	public static native void onNotification(int id, String data);
 
 	public static boolean initialize(String channelId, String channelName, String channelDescription, int importance) {
 		NotificationChannel notificationChannel = new NotificationChannel(channelId, channelName, importance);
