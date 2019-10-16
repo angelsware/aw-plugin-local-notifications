@@ -38,8 +38,14 @@ namespace LocalNotifications {
 		return *this;
 	}
 
-	CNotification& CNotification::setVibration(Type::CArray<long> pattern) {
-		mVibrationPattern = pattern;
+	CNotification& CNotification::setVibration(const Type::CBuffer<long>& pattern) {
+		unsigned int count = pattern.getCount();
+		if (count > 0) {
+			mVibrationPattern.reset(count);
+			for (unsigned int i = 0; i < count; ++i) {
+				mVibrationPattern[i] = pattern[i];
+			}
+		}
 		return *this;
 	}
 

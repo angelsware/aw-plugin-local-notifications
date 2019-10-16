@@ -2,7 +2,7 @@
 #define __AW_LOCAL_NOTIFICATIONS_NOTIFICATION_H__
 
 #include <type/aw_string.h>
-#include <type/aw_array.h>
+#include <type/aw_buffer.h>
 #include <rendering/aw_color.h>
 
 namespace LocalNotifications {
@@ -17,7 +17,7 @@ namespace LocalNotifications {
 		CNotification& setPriority(int priority);
 		CNotification& setColor(const Rendering::CColor& color);
 		CNotification& setAutoCancel(bool autoCancel);
-		CNotification& setVibration(Type::CArray<long> pattern);
+		CNotification& setVibration(const Type::CBuffer<long>& pattern);
 		CNotification& setPayload(const char* payload);
 
 		const char* getTitle() const { return mTitle.get(); }
@@ -26,7 +26,7 @@ namespace LocalNotifications {
 		int getPriority(int priority) const { return mPriority; }
 		int getColor(const Rendering::CColor& color) const { return mColor.toInt(); }
 		bool getAutoCancel(bool autoCancel) const { return mAutoCancel; }
-		//CNotification& setVibration(Type::CArray<long> pattern);
+		const Type::CBuffer<long>& getVibration() const { return mVibrationPattern; }
 		const char* getPayload() const { return mPayload.get(); }
 
 	private:
@@ -36,7 +36,7 @@ namespace LocalNotifications {
 		Type::CString mLargeIcon;
 		int mPriority;
 		Rendering::CColor mColor;
-		Type::CArray<long> mVibrationPattern;
+		Type::CBuffer<long> mVibrationPattern;
 		Type::CString mPayload;
 		bool mAutoCancel;
 	};
