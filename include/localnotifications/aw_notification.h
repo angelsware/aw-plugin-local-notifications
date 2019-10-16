@@ -13,6 +13,7 @@ namespace LocalNotifications {
 
 		CNotification& setTitle(const char* title);
 		CNotification& setText(const char* text);
+		CNotification& setSmallIcon(const char* filename);
 		CNotification& setLargeIcon(const char* filename);
 		CNotification& setPriority(int priority);
 		CNotification& setColor(const Rendering::CColor& color);
@@ -22,6 +23,7 @@ namespace LocalNotifications {
 
 		const char* getTitle() const { return mTitle.get(); }
 		const char* getText() const { return mText.get(); }
+		const char* getSmallIcon() const { return mSmallIcon.get(); }
 		const char* getLargeIcon() const { return mLargeIcon.get(); }
 		int getPriority(int priority) const { return mPriority; }
 		int getColor(const Rendering::CColor& color) const { return mColor.toInt(); }
@@ -33,6 +35,7 @@ namespace LocalNotifications {
 		int mId;
 		Type::CString mTitle;
 		Type::CString mText;
+		Type::CString mSmallIcon;
 		Type::CString mLargeIcon;
 		int mPriority;
 		Rendering::CColor mColor;

@@ -31,9 +31,9 @@ public class NotificationManager {
 		return false;
 	}
 
-	public static void sendNotification(String channelId, int id, String title, String text, String largeIcon, int priority, int color, boolean autoCancel, long[] vibrationPattern, String payload) {
+	public static void sendNotification(String channelId, int id, String title, String text, String smallIcon, String largeIcon, int priority, int color, boolean autoCancel, long[] vibrationPattern, String payload) {
 		NotificationCompat.Builder builder = new NotificationCompat.Builder(AppActivity.getActivity(), channelId);
-		//builder.setSmallIcon(R.drawable.ic_launcher);
+		builder.setSmallIcon(AppActivity.getResourceIdFromName(smallIcon, "drawable"));
 		if (text != null) {
 			builder.setContentText(text);
 		}

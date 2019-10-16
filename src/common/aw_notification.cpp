@@ -9,17 +9,22 @@ namespace LocalNotifications {
 	{}
 
 	CNotification& CNotification::setTitle(const char* title) {
-		mTitle = title;
+		mTitle.reset(title);
 		return *this;
 	}
 
 	CNotification& CNotification::setText(const char* text) {
-		mText = text;
+		mText.reset(text);
+		return *this;
+	}
+
+	CNotification& CNotification::setSmallIcon(const char* filename) {
+		mSmallIcon.reset(filename);
 		return *this;
 	}
 
 	CNotification& CNotification::setLargeIcon(const char* filename) {
-		mLargeIcon = filename;
+		mLargeIcon.reset(filename);
 		return *this;
 	}
 
@@ -50,7 +55,7 @@ namespace LocalNotifications {
 	}
 
 	CNotification& CNotification::setPayload(const char* payload) {
-		mPayload = payload;
+		mPayload.reset(payload);
 		return *this;
 	}
 }

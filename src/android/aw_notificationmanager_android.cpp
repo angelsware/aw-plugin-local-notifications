@@ -22,10 +22,11 @@ namespace LocalNotifications {
 
 	void CNotificationManager_Android::sendNotification(int id, const CNotification& notification) {
 		if (jclass clazz = Platform::CJniFunction::getClass("com/angelsware/localnotifications/NotificationManager")) {
-			if (jmethodID method = Platform::CJniFunction::getMethod(clazz, "sendNotification", "(Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;IIZ[JLjava/lang/String;)V")) {
+			if (jmethodID method = Platform::CJniFunction::getMethod(clazz, "sendNotification", "(Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IIZ[JLjava/lang/String;)V")) {
 				Platform::CJniString channelId("aw_channel_id");
 				Platform::CJniString title(notification.getTitle());
 				Platform::CJniString text(notification.getText());
+				Platform::CJniString smallIcon(notification.getSmallIcon());
 				Platform::CJniString largeIcon(notification.getLargeIcon());
 				Platform::CJniLongArray vibrationPattern(notification.getVibration().data(), static_cast<int>(notification.getVibration().getCount()));
 				int priority = 0;
@@ -33,7 +34,7 @@ namespace LocalNotifications {
 				bool autoCancel = true;
 
 				Platform::CJniString payload(notification.getPayload());
-				Platform::CJni::getEnv()->CallStaticVoidMethod(clazz, method, channelId.getText(), id, title.getText(), text.getText(), largeIcon.getText(), priority, color, autoCancel, vibrationPattern.getLongArray(), payload.getText());
+				Platform::CJni::getEnv()->CallStaticVoidMethod(clazz, method, channelId.getText(), id, title.getText(), text.getText(), smallIcon.getText(), largeIcon.getText(), priority, color, autoCancel, vibrationPattern.getLongArray(), payload.getText());
 			}
 		}
 	}
