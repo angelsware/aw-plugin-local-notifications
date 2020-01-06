@@ -8,5 +8,5 @@ Add the **plugins** section to the **config.yaml** file of your project.
 
 ```
 plugins:
-	repo: https://github.com/angelsware/aw-plugin-local-notifications.git
+- repo: https://github.com/angelsware/aw-plugin-local-notifications.git
 ```
